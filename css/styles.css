@@ -22,12 +22,10 @@ h1 {
 }
 .cards1 {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
 }
 .cards2 {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
 }
 .card {
