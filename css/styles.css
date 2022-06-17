@@ -20,12 +20,9 @@ h1 {
 
     margin: 0px auto 13px auto;
 }
-.cards1 {
+.cards {
     display: flex;
-    justify-content: center;
-}
-.cards2 {
-    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 .card {
