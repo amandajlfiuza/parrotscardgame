@@ -29,15 +29,20 @@ function criarCartas() {
     if (numeroValido) {
         const cards = document.querySelector(".cards");
         cards.innerHTML = '';
+        
+        for (let o=baralho.length; o>noDeCartas/2; o--) {
+            baralho.pop();
+        }
 
-        baralho.sort(comparador);
-
-        for (let i=0; i<noDeCartas; i++) {
-            cards.innerHTML +=
-            `<div class='card' onclick='virarCarta(this)' data-identifier='card'>
-                <img class='frente' src='./imagens/front 1.png' data-identifier='back-face'/>
-                <img class='verso' src=${baralho[i]} data-identifier='front-face'/>
-            </div>`;
+        for (let i=0; i<2; i++) {
+            baralho.sort(comparador);
+            for (let j=0; j<baralho.length; j++) {
+                cards.innerHTML +=
+                `<div class='card' onclick='virarCarta(this),jogada(this)' data-identifier='card'>
+                    <img class='frente' src='./imagens/front 1.png' data-identifier='back-face'/>
+                    <img class='verso' src=${baralho[j]} data-identifier='front-face'/>
+                </div>`;
+            }
         }
 
     } else {
@@ -45,3 +50,14 @@ function criarCartas() {
     }
 }
 criarCartas();
+
+function jogada(elemento) {
+    if (document.querySelectorAll('.virado').length%2==1) {
+        
+    } else {
+        srcImg = document.querySelector('.verso').getAttribute('src');
+        if (document.querySelectorAll(`.virado [src="${srcImg}"]`).length==1) {
+            
+        }
+    }
+}
