@@ -14,16 +14,19 @@ const baralho = [
     "./imagens/unicornparrot.gif"
 ]
 
+let contador = 0;
+let primeiraCarta;
+let segundaCarta;
+let noDeCartas = 0;
+
 function comparador() { 
 	return Math.random() - 0.5; 
 }
 
-function virarCarta(elemento) {
-    elemento.classList.toggle("virado");
-}
+let elemento;
 
 function criarCartas() {
-    const noDeCartas = Number(prompt("Com quartas cartas você quer jogar? Insira um número par, de 4 a 14."));
+    noDeCartas = Number(prompt("Com quartas cartas você quer jogar? Insira um número par, de 4 a 14."));
     const numeroValido = (noDeCartas>=4 && noDeCartas<=14 && noDeCartas%2 == 0);
 
     if (numeroValido) {
@@ -38,7 +41,7 @@ function criarCartas() {
             baralho.sort(comparador);
             for (let j=0; j<baralho.length; j++) {
                 cards.innerHTML +=
-                `<div class='card' onclick='virarCarta(this),jogada(this)' data-identifier='card'>
+                `<div class='card' onclick='jogada(this)' data-identifier='card'>
                     <img class='frente' src='./imagens/front 1.png' data-identifier='back-face'/>
                     <img class='verso' src=${baralho[j]} data-identifier='front-face'/>
                 </div>`;
@@ -52,12 +55,32 @@ function criarCartas() {
 criarCartas();
 
 function jogada(elemento) {
+    elemento.classList.add("virado");
+
     if (document.querySelectorAll('.virado').length%2==1) {
-        
+        primeiraCarta = elemento;
     } else {
-        srcImg = document.querySelector('.verso').getAttribute('src');
-        if (document.querySelectorAll(`.virado [src="${srcImg}"]`).length==1) {
-            
-        }
+        segundaCarta = elemento;
+        virarCartasErradas();
+    }
+    
+    contador++;
+    setTimeout(fimDeJogo,1300);
+}
+
+function virarCartasErradas () {
+    srcPrCarta = primeiraCarta.querySelector('.verso').getAttribute('src');
+    srcSgCarta = segundaCarta.querySelector('.verso').getAttribute('src');
+    if (document.querySelectorAll('.virado').length%2==0 && srcPrCarta!==srcSgCarta) {
+        setTimeout(function () {
+            primeiraCarta.classList.remove("virado");
+            segundaCarta.classList.remove("virado");
+        }, 1000);
+    }
+}
+
+function fimDeJogo () {
+    if (document.querySelectorAll('.virado').length==noDeCartas) {
+        alert(`Você ganhou em ${contador} jogadas`);
     }
 }
