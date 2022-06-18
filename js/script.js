@@ -28,6 +28,7 @@ let elemento;
 function criarCartas() {
     noDeCartas = Number(prompt("Com quartas cartas você quer jogar? Insira um número par, de 4 a 14."));
     const numeroValido = (noDeCartas>=4 && noDeCartas<=14 && noDeCartas%2 == 0);
+    baralho.sort(comparador);
 
     if (numeroValido) {
         const cards = document.querySelector(".cards");
